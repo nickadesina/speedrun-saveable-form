@@ -1,0 +1,13 @@
+{
+  "name": "speedrun-form",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build required'",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
