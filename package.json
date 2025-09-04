@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "build": "echo 'No build required'",
+    "build": "mkdir -p public && cp index.html config.js public/ && cp -r src styles public/",
     "deploy": "vercel --prod"
   },
   "devDependencies": {

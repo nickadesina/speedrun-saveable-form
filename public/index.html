@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speedrun Application Form</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Password Protection Modal -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Access Code</h2>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="checkPassword()">Submit</button>
+            <div id="passwordError" class="error-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Form Container -->
+    <div id="mainContent" style="display: none;">
+        <div class="header">
+            <h1>Speedrun Application</h1>
+            <div class="header-actions">
+                <span id="saveIndicator" class="save-indicator">Saved!</span>
+                <button onclick="saveForm()" class="save-btn">Save</button>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <form id="applicationForm">
+            <!-- Startup Details Section -->
+            <section class="form-section">
+                <h2>Startup Details</h2>
+                <p class="section-description">Help us understand your startup. The problem you're solving, your solution, and where you are today.</p>
+                <p class="required-notice">Required fields are marked with an asterisk (*).</p>
+
+                <div class="form-group">
+                    <label for="startupName">Startup Name *</label>
+                    <input type="text" id="startupName" name="startupName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="oneLiner">Pitch your startup in one sentence. *</label>
+                    <p class="field-hint">What do you do and for whom? E.g. "AI-powered therapist for Gen Z"</p>
+                    <input type="text" id="oneLiner" name="oneLiner" required>
+                    <div class="word-counter" data-field="oneLiner" data-limit="10">0/10 words</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Startup Description *</label>
+                    <p class="field-hint">Briefly describe the market you're going after, the problem you solve, the unique approach you're taking, and why your team is the best to tackle it. Feel free to include metrics too if available.</p>
+                    <textarea id="description" name="description" rows="6" required></textarea>
+                    <div class="word-counter" data-field="description" data-limit="100">0/100 words</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="primaryCategory">Which category best fits your startup? *</label>
+                    <p class="field-hint">Select the closest match. If none apply, choose "Other" and add your own.</p>
+                    <select id="primaryCategory" name="primaryCategory" required>
+                        <option value="">Select category...</option>
+                        <option value="B2B / Enterprise Applications">B2B / Enterprise Applications</option>
+                        <option value="Consumer Applications">Consumer Applications</option>
+                        <option value="Deep Tech">Deep Tech</option>
+                        <option value="Gaming / Entertainment Studio">Gaming / Entertainment Studio</option>
+                        <option value="Infrastructure / Dev Tools">Infrastructure / Dev Tools</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="GovTech">GovTech</option>
+                        <option value="Web3">Web3</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="secondaryCategory">Secondary Category (optional)</label>
+                    <p class="field-hint">If your startup fits more than one category, add a second here.</p>
+                    <select id="secondaryCategory" name="secondaryCategory">
+                        <option value="">Select category...</option>
+                        <option value="B2B / Enterprise Applications">B2B / Enterprise Applications</option>
+                        <option value="Consumer Applications">Consumer Applications</option>
+                        <option value="Deep Tech">Deep Tech</option>
+                        <option value="Gaming / Entertainment Studio">Gaming / Entertainment Studio</option>
+                        <option value="Infrastructure / Dev Tools">Infrastructure / Dev Tools</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="GovTech">GovTech</option>
+                        <option value="Web3">Web3</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Where do you intend to build your startup? *</label>
+                    <div class="location-fields">
+                        <div>
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="United States of America">United States of America</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="state">State *</label>
+                            <select id="state" name="state" required>
+                                <option value="California">California</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>When was your startup founded? *</label>
+                    <div class="date-fields">
+                        <div>
+                            <label for="foundedYear">Year *</label>
+                            <select id="foundedYear" name="foundedYear" required>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="foundedMonth">Month *</label>
+                            <select id="foundedMonth" name="foundedMonth" required>
+                                <option value="">Select month...</option>
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="website">Company Website (optional)</label>
+                    <p class="field-hint">E.g. https://yourcompany.com</p>
+                    <input type="url" id="website" name="website" placeholder="https://">
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalInfo">Anything else we should know? (optional)</label>
+                    <p class="field-hint">If there's something that doesn't fit elsewhere, drop it here.</p>
+                    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
+                    <div class="word-counter" data-field="additionalInfo" data-limit="100">0/100 words</div>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section class="form-section">
+                <h2>Team</h2>
+                <p class="section-description">We back exceptional founders. Tell us who's building this and why you're the team to make it happen.</p>
+                <p class="required-notice">Required fields are marked with an asterisk (*).</p>
+
+                <div class="form-group">
+                    <label for="workStatus">Are you full-time or part-time on the startup? *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="workStatus" value="Full-time" required> Full-time</label>
+                        <label><input type="radio" name="workStatus" value="Part-time" required> Part-time</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullTimeFounders">Number of full-time founders *</label>
+                    <p class="field-hint">How many founders are working full-time on your startup?</p>
+                    <select id="fullTimeFounders" name="fullTimeFounders" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <p class="field-hint">Founders are individuals with over 10% equity. If you're part-time or not yet incorporated, enter '0' and add all co-founders in the section below.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="totalFTE">Total FTE Employees *</label>
+                    <p class="field-hint">How many full-time equivalent employees (including founders) are currently at your startup?</p>
+                    <input type="number" id="totalFTE" name="totalFTE" min="0" step="0.5" required>
+                    <p class="field-hint">Part-time staff should be counted proportionally (e.g., two half-time employees = 1 FTE).</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="teamExperience">Team's relevant experience *</label>
+                    <p class="field-hint">In a few sentences, highlight your most relevant professional, startup, or industry experience. Focus on track record, domain expertise, and past wins.</p>
+                    <textarea id="teamExperience" name="teamExperience" rows="4" required></textarea>
+                    <div class="word-counter" data-field="teamExperience" data-limit="100">0/100 words</div>
+                </div>
+            </section>
+
+            <!-- Founder Details Section -->
+            <section class="form-section">
+                <h2>Founder Details *</h2>
+                <p class="section-description">Tell us who's building this. Start with yourself, then add any co-founders.</p>
+
+                <!-- CEO/Primary Founder -->
+                <div class="founder-card">
+                    <h3>CEO</h3>
+                    <div class="founder-grid">
+                        <div class="form-group">
+                            <label for="ceoFirstName">First Name *</label>
+                            <input type="text" id="ceoFirstName" name="ceoFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoLastName">Last Name *</label>
+                            <input type="text" id="ceoLastName" name="ceoLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoEmail">Email *</label>
+                            <input type="email" id="ceoEmail" name="ceoEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoPhone">Phone Number</label>
+                            <input type="tel" id="ceoPhone" name="ceoPhone">
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoCitizenship">Citizenship *</label>
+                            <input type="text" id="ceoCitizenship" name="ceoCitizenship" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoCollege">College / University *</label>
+                            <input type="text" id="ceoCollege" name="ceoCollege" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoExperience">Years of professional experience *</label>
+                            <input type="number" id="ceoExperience" name="ceoExperience" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Are you technical enough to build the product end-to-end? *</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="ceoTechnical" value="Yes" required> Yes</label>
+                                <label><input type="radio" name="ceoTechnical" value="No" required> No</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoLinkedIn">LinkedIn URL *</label>
+                            <input type="url" id="ceoLinkedIn" name="ceoLinkedIn" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoGithub">GitHub URL</label>
+                            <input type="url" id="ceoGithub" name="ceoGithub">
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoTwitter">X (Twitter) URL</label>
+                            <input type="url" id="ceoTwitter" name="ceoTwitter">
+                        </div>
+                        <div class="form-group">
+                            <label for="ceoPortfolio">Portfolio URL</label>
+                            <p class="field-hint">Link to personal website, project portfolio, or side project.</p>
+                            <input type="url" id="ceoPortfolio" name="ceoPortfolio">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Co-founders Container -->
+                <div id="cofoundersContainer"></div>
+
+                <button type="button" onclick="addCofounder()" class="add-cofounder-btn">+ Add Co-founder</button>
+            </section>
+
+            <!-- Additional Information Section -->
+            <section class="form-section">
+                <h2>Additional Information</h2>
+                <p class="section-description">Any additional information you share with us adds important context that we review and significantly improves the strength of your application.</p>
+
+                <div class="form-group">
+                    <label for="pitchDeck">Pitch Deck (PDF)</label>
+                    <p class="field-hint">Optional</p>
+                    <input type="file" id="pitchDeck" name="pitchDeck" accept=".pdf">
+                </div>
+
+                <div class="form-group">
+                    <label for="fundingHistory">Funding History</label>
+                    <p class="field-hint">Optional</p>
+                    <textarea id="fundingHistory" name="fundingHistory" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="activeRound">Active Fundraising Round</label>
+                    <p class="field-hint">Optional</p>
+                    <input type="text" id="activeRound" name="activeRound">
+                </div>
+
+                <div class="form-group">
+                    <label for="metrics">Metrics</label>
+                    <p class="field-hint">Optional</p>
+                    <textarea id="metrics" name="metrics" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="referral">Referral</label>
+                    <p class="field-hint">Optional</p>
+                    <input type="text" id="referral" name="referral">
+                </div>
+
+                <div class="form-group">
+                    <label for="whereLearn">Where did you learn about speedrun?</label>
+                    <input type="text" id="whereLearn" name="whereLearn">
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Load config first, then main app -->
+    <script src="config.js"></script>
+    <script src="src/app.tsx"></script>
+</body>
+</html>
